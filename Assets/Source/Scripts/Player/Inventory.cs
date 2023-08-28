@@ -17,8 +17,8 @@ public class Inventory : MonoBehaviour
     public GameObject UpgradeButton;
     private void Awake()
     {
-        inv = new Item[49];
-        count = new int[49];
+        inv = new Item[42];
+        count = new int[42];
         equipment = new Item[3];
         itemEffectManager = new ItemEffectManager();
         UpgradeButton.SetActive(false);

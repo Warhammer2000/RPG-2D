@@ -230,7 +230,7 @@ public class PlayerController : MonoBehaviour
         BowReady += inventory.equipment[1].speed * 0.2f * Time.deltaTime;
         if(BowReady <= 2)
         {
-            Debug.Log("0");
+            
             if (myBow.sprite != inventory.equipment[1].sprite) myBow.sprite = inventory.equipment[1].sprite;
            if(BowReady < 1f)arrowPoint.gameObject.SetActive(false);
            

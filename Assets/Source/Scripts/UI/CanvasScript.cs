@@ -73,7 +73,7 @@ public class CanvasScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             mainPanelIsOpen = !mainPanelIsOpen;
-            mainPanel.gameObject.SetActive(mainPanelIsOpen);
+             mainPanel.gameObject.SetActive(mainPanelIsOpen);
         }
         if (mainPanelIsOpen)
         {

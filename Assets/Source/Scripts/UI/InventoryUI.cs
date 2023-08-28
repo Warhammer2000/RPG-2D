@@ -65,7 +65,7 @@ public class InventoryUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         }
         else Debug.Log("Вставить ссылку на курсор!");
         //Invetory
-        cells = new CellScript[48];
+        cells = new CellScript[42];
         for (int i = 0; i < cells.Length; i++)
         {
             cells[i] = cellPanel.GetChild(i).GetComponent<CellScript>().GetLinkSetSettings(i, this);
@@ -115,7 +115,8 @@ public class InventoryUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
     private void InfoChange(Item ItemInfo)
     {
-        if (ItemInfo)
+        Debug.Log(ItemInfo);
+        if (ItemInfo != null)
         {
             infoImage.enabled = true;
             infoImage.sprite = ItemInfo.sprite;
@@ -123,7 +124,6 @@ public class InventoryUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
             infoName.text = ItemInfo.name;
             infoDescription.text = ItemInfo.description;    
             infoEffect.text = ItemInfo.effect;
-           
         }
         else
         {
@@ -184,6 +184,11 @@ public class InventoryUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
             if (selectedCell == cursorCell) selectedCell = null;
             else selectedCell = cursorCell;
         }
+        if (selectedCell)
+        {
+            InfoChange(inventory.inv[selectedCell.CellId]);
+        }
+        else InfoChange(null);
     }
     public void CursorCellSwitch(CellScript newCell)
     {
