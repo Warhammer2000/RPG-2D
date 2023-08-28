@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b76586006bc655749945b0f2031bd509, type: 3}
+  m_Name: Gold
+  m_EditorClassIdentifier: 
+  id: 1
+  name: "\u0417\u043E\u043B\u043E\u0442\u043E"
+  sprite: {fileID: -5742115123698595625, guid: 597eba1b8e22e834ba9d6c8832ab5f61, type: 3}
+  spriteForBow_2: {fileID: 0}
+  myArrow: {fileID: 0}
+  clip: {fileID: 8300000, guid: f89eaffd625b33e42b000783f6f82e31, type: 3}
+  description: "\u0417\u043E\u043B\u043E\u0442\u043E"
+  effect: "\u041D\u0435\u0442\u0443 \u044D\u0444\u0444\u0435\u043A\u0442\u0430"
+  cost: 15
+  myType: 4
+  isUseFul: 1
+  isArrow: 0
+  ArrowId: 0
+  arrowSprite: {fileID: 0}
+  damage: 0
+  pulse: 0
+  speed: 0
+  weight: 0
+  length: 0
+  offset: 0
+  protection: 0
+  bookSpell: 0
+  BookSpell: {fileID: 0}

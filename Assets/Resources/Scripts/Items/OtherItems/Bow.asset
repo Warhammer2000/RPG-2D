@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b76586006bc655749945b0f2031bd509, type: 3}
+  m_Name: Bow
+  m_EditorClassIdentifier: 
+  id: 101
+  name: Bow
+  sprite: {fileID: 21300000, guid: 77276d9a0a01d16419daefceeee1db98, type: 3}
+  spriteForBow_2: {fileID: 0}
+  myArrow: {fileID: 2202895011355040364, guid: c7dc43ae08c3344488d30dadfeaf0ec1, type: 3}
+  clip: {fileID: 8300000, guid: 20f2672cc5572b64a89723cc979d4e78, type: 3}
+  description: "\u0417\u0434\u0435\u0441\u044C \u0434\u043E\u043B\u0436\u043D\u043E
+    \u0431\u044B\u0442\u044C \u0430\u0442\u043C\u043E\u0441\u0444\u0435\u0440\u043D\u043E\u0435
+    \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u0430"
+  effect: "\u0417\u0434\u0435\u0441\u044C \u0434\u043E\u043B\u0436\u043D\u043E \u0431\u044B\u0442\u044C
+    \u043E\u043F\u0438\u0441\u0430\u043D\u0438\u0435 \u0441\u0432\u043E\u0439\u0441\u0442\u0432\u0430
+    \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u0430"
+  cost: 154
+  myType: 1
+  isUseFul: 1
+  isArrow: 0
+  ArrowId: 100
+  arrowSprite: {fileID: 21300000, guid: 069a1800aa92a7a449882e58bd986e54, type: 3}
+  damage: 70
+  pulse: 2.38
+  speed: 10
+  weight: 2.85
+  length: 3.82
+  offset: 2.68
+  protection: 0
+  bookSpell: 0
+  BookSpell: {fileID: 0}
