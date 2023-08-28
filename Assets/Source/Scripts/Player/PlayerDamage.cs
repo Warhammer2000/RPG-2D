@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 public class PlayerDamage : MonoBehaviour
 {
@@ -9,9 +10,9 @@ public class PlayerDamage : MonoBehaviour
     private PlayerController controller;
     private SpriteRenderer render;
     private Color myCol;
-    [SerializeField]
-    private Color hitColor;
 
+    [SerializeField] private Color hitColor;
+    [Inject] private PlayerStats playerstats;
 
     private void OnEnable()
     {
@@ -36,7 +37,7 @@ public class PlayerDamage : MonoBehaviour
         controller.isHited = true;
         int damage = stats.enemyDamage - PlayerStats.PlayerProtection / 2;
         if (damage <= 0) damage = 1;
-        PlayerStats.stats.PlayerDamage(damage);
+        playerstats.PlayerDamage(damage);
         StartCoroutine(Stun());
         rb.velocity = Vector2.zero;
         if(stats.transform.position.x > transform.position.x)

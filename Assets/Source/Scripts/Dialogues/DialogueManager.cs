@@ -27,13 +27,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private bool stopReplicas = false;
     [SerializeField] private GameObject ItemPref;
 
-
-    public static DialogueManager Instance;
-
-
+    [Inject] private PlayerController playerController;
     private void Awake()
     {
-        Instance = this;
         Initialize();
     }
     private void Initialize()
@@ -178,7 +174,7 @@ public class DialogueManager : MonoBehaviour
                 }
                 else
                 {
-                    ItemSettings temp = Instantiate(ItemPref, PlayerController.con.transform.position, Quaternion.identity).GetComponent<ItemSettings>();   
+                    ItemSettings temp = Instantiate(ItemPref, playerController.transform.position, Quaternion.identity).GetComponent<ItemSettings>();   
                     temp.thisItem = ItemManager.items[link];
                     temp.count = 1;
                 }

@@ -5,7 +5,7 @@ using Zenject;
 
 public class PlayerStats : MonoBehaviour
 {
-    public static PlayerStats stats;
+  
     public static string PlayerName;
     public static Sprite PlayerSprite;
     public string Name;
@@ -83,7 +83,7 @@ public class PlayerStats : MonoBehaviour
     public AudioClip clip;
     private void Awake()
     {
-        stats = this;
+       
         PlayerSprite = Resources.Load<Sprite>("Sprites/Sprites/PlayerSprite");
         PlayerName = Name;
         source = GetComponent<AudioSource>();
@@ -225,7 +225,7 @@ public class PlayerStats : MonoBehaviour
             }        
         }
     }
-    public static void CharUp(int index)
+    public  void CharUp(int index)
     {
         switch (index)
         {
@@ -235,7 +235,7 @@ public class PlayerStats : MonoBehaviour
             case 3: Intelligence++; break;
         }
         ExpPoints--;
-        stats.Manager();
+        Manager();
     }
     public static bool StaminaLose(float loseCount, float modificator, int parameter)
     {

@@ -38,8 +38,9 @@ public class StatsUi : MonoBehaviour
     [SerializeField] private Text lvlDText;
     [SerializeField] private Text expDText;
 
-    [Inject]
-    private Inventory inventory;
+
+    [Inject] private Inventory inventory;
+    [Inject] private PlayerStats stats;
 
     public AudioSource source;
     public AudioClip clip;
@@ -110,28 +111,28 @@ public class StatsUi : MonoBehaviour
     private void SrtBut()
     {
         source.PlayOneShot(clip);
-        PlayerStats.CharUp(0);
+        stats.CharUp(0);
         CharRefresh();
         InfoRefresh();
     }
     private void AglBut()
     {
         source.PlayOneShot(clip);
-        PlayerStats.CharUp(1);
+        stats.CharUp(1);
         CharRefresh();
         InfoRefresh();
     }
     private void ConBut()
     {
         source.PlayOneShot(clip);
-        PlayerStats.CharUp(2);
+        stats.CharUp(2);
         CharRefresh();
         InfoRefresh();
     }
     private void IntBut()
     {
         source.PlayOneShot(clip);
-        PlayerStats.CharUp(3);
+        stats.CharUp(3);
         CharRefresh();
         InfoRefresh();
     }

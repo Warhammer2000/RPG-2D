@@ -2,29 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class CanvasScript : MonoBehaviour
 {
 
-    public MainPanelSctipt mainPanel;
+    [SerializeField] private MainPanelSctipt mainPanel;
 
-    public static CanvasScript canvas;
+   
 
-    public static bool mainPanelIsOpen = false;
-    public RectTransform hpUi;
-    public RectTransform spUi;
-    public RectTransform mpUi;
+    private static bool mainPanelIsOpen = false;
+    
+    [SerializeField] private RectTransform hpUi;
+    [SerializeField] private RectTransform spUi;
+    [SerializeField] private RectTransform mpUi;
 
-    Image hp;
-    Image sp;
-    Image mp;
+    private Image hp;
+    private Image sp;
+    private Image mp;
 
-    Text hpText;
-    Text spText;
-    Text mpText;
+    private Text hpText;
+    private Text spText;
+    private Text mpText;
+
+    [Inject] private PlayerController controller;
+
     void Awake()
     {
-        canvas = this;
         hp = hpUi.GetChild(0).GetComponent<Image>();
         sp = spUi.GetChild(0).GetComponent<Image>();
         mp = mpUi.GetChild(0).GetComponent<Image>();
@@ -74,8 +78,8 @@ public class CanvasScript : MonoBehaviour
         if (mainPanelIsOpen)
         {
             Time.timeScale = 0f;
-            PlayerController.con.isMelle = true;
-            PlayerController.con.mySword.SetActive(false);
+            controller.isMelle = true;
+            controller.mySword.SetActive(false);
 
         }
         else Time.timeScale = 1f;

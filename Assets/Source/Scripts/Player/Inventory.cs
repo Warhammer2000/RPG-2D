@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour
 {
-   // public static Inventory instance { get; set; }
+  
     public Item[] inv; //items
     public int[] count;
     public int money;
@@ -68,7 +68,6 @@ public class Inventory : MonoBehaviour
         }
 
     }
-    #region toReWrite
     public bool Use(int id)
     {
         if (!inv[id]) return false;
@@ -113,7 +112,6 @@ public class Inventory : MonoBehaviour
         }
         else return false;
     }
-    #endregion toreWrite
     public void MoveItem(int oldid, int newId)
     {
         inv[newId] = inv[oldid];

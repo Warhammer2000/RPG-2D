@@ -12,8 +12,9 @@ public class EnemyCanDie : MonoBehaviour
 
     private bool isHited;
 
-    [Inject]
-    private Inventory inventory;
+
+    [Inject] private Inventory inventory;
+    [Inject] private PlayerController controller;
 
     private SpriteRenderer mySprite;
     private Color myColor;
@@ -40,7 +41,7 @@ public class EnemyCanDie : MonoBehaviour
         {
             StartCoroutine(HitVisual());
             stats.SetDamage(PlayerStats.PlayerMelDamage);
-            Transform player = PlayerController.con.transform;
+            Transform player = controller.transform;
             rb.velocity = Vector2.zero;
 
             if(player.position.x > transform.position.x)
@@ -78,7 +79,7 @@ public class EnemyCanDie : MonoBehaviour
         {
             StartCoroutine(HitVisual());
             stats.SetDamage(PlayerStats.PlayerDisDamage);
-            Transform player = PlayerController.con.transform;
+            Transform player = controller.transform;
             rb.velocity = Vector2.zero;
 
             if(arrowPos.x > transform.position.x)

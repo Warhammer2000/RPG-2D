@@ -11,11 +11,10 @@ public class PlayerController : MonoBehaviour
     [Header("Player Settings")]
     public float speed;
 
-    public static PlayerController con;
-    [Inject]
-    private Inventory inventory;    
-
-    public PlayerStats stats;
+    
+    [Inject] private Inventory inventory;
+    [Inject] private PlayerStats stats;
+   
     private Vector3 cursor;
     public float DashForce; //Сила рывка
     public float DashStaminaLose;
@@ -55,7 +54,6 @@ public class PlayerController : MonoBehaviour
     public AudioSource source;
     void Awake()
     {
-        con = this;
         stats = GetComponent<PlayerStats>();
         rb = GetComponent<Rigidbody2D>();
         mySprite = transform.GetChild(0);
@@ -108,7 +106,7 @@ public class PlayerController : MonoBehaviour
     {
         if(Input.GetKey(KeyCode.Space) && !playerIsStand && !isDashed)
         {
-            if(PlayerStats.StaminaLose(DashStaminaLose, PlayerStats.stats.aglDash, PlayerStats.Agility))
+            if(PlayerStats.StaminaLose(DashStaminaLose, stats.aglDash, PlayerStats.Agility))
             {
                 isDashed = true;
                 DashTime = DashCountDown;
@@ -143,7 +141,7 @@ public class PlayerController : MonoBehaviour
         {
             if (inventory.equipment[0])
             {
-                if(PlayerStats.StaminaLose(inventory.equipment[0].weight, PlayerStats.stats.strWeight, PlayerStats.Strength))
+                if(PlayerStats.StaminaLose(inventory.equipment[0].weight, stats.strWeight, PlayerStats.Strength))
                 {
                     swordRender.sprite = inventory.equipment[0].sprite;
                     swordCollider.size = new Vector2(0.4f, inventory.equipment[0].length);
@@ -260,7 +258,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(0))
                 {
-                    if(PlayerStats.StaminaLose(inventory.equipment[1].weight, PlayerStats.stats.strWeight, PlayerStats.Strength))
+                    if(PlayerStats.StaminaLose(inventory.equipment[1].weight, stats.strWeight, PlayerStats.Strength))
                     {
                         bowCharched = false;
                         ArrowIsReady = false;

@@ -8,8 +8,9 @@ using Zenject;
 public class InventoryUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
 
-    [Inject]
-    private Inventory inventory;    
+
+    [Inject] private Inventory inventory;    
+    [Inject] private PlayerController controller;    
 
 
     public CellScript[] cells;
@@ -147,8 +148,8 @@ public class InventoryUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
                 }
             }
             cells[i].Refresh();
-         //   if (cells[i].isEquip) cells[i].SetColor(equipColor[(int)Inventory.instance.inv[cells[i].CellId].myType]);
-          //  else cells[i].SetColor(myColor);
+            if (cells[i].isEquip) cells[i].SetColor(equipColor[(int)inventory.inv[cells[i].CellId].myType]);
+            else cells[i].SetColor(myColor);
         }
         if (cursorCell && !cursorCell.isEquip) cursorCell.SetColor(cursorColor);
         if (selectedCell)
@@ -243,7 +244,7 @@ public class InventoryUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
            }
         }
 
-        ItemSettings temp = Instantiate(ItemPref, PlayerController.con.transform.position, Quaternion.identity).GetComponent<ItemSettings>();
+        ItemSettings temp = Instantiate(ItemPref, controller.transform.position, Quaternion.identity).GetComponent<ItemSettings>();
         temp.thisItem = inventory.inv[previousCell.CellId];
         temp.count = inventory.count[previousCell.CellId];
 

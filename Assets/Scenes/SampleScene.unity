@@ -11566,6 +11566,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventory: {fileID: 858057164}
+  stats: {fileID: 858057166}
+  player: {fileID: 858057160}
+  dislogue: {fileID: 1669545726}
+  canvas: {fileID: 46333324}
 --- !u!1 &712088840
 GameObject:
   m_ObjectHideFlags: 0
@@ -18100,7 +18104,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3.38
-  stats: {fileID: 0}
   DashForce: 8.94
   DashStaminaLose: 2
   DashTime: 0.1
@@ -29285,7 +29288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1669545723
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29356,14 +29359,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12bc63556bb87744f9836c7ad19f4e19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UI: {fileID: 0}
-  Portrate: {fileID: 0}
-  Name: {fileID: 0}
-  ReplicasText: {fileID: 0}
+  UI: {fileID: 1010529286}
+  Portrate: {fileID: 892919610}
+  Name: {fileID: 2066490686}
+  ReplicasText: {fileID: 795603473}
   buttons: []
   buttonText: []
   settings: {fileID: 75311441}
-  dialog: {fileID: 0}
+  dialog: {fileID: 11400000, guid: 18750e43e5c96c04a8a39a2e2d769859, type: 2}
   replicasIndex: 0
   textIndex: 0
   stopReplicas: 0

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class EnemyStats : MonoBehaviour
 {
@@ -10,8 +11,10 @@ public class EnemyStats : MonoBehaviour
     public int enemyDamage;
     public int hitPulse;
     public BoxCollider2D enemyCollider;
-
     private EnemyAI ai;
+
+    [Inject] private PlayerController playerController;
+    [Inject] private PlayerStats stats;
 
     [Header("Drop")]
     public int exp;
@@ -35,7 +38,7 @@ public class EnemyStats : MonoBehaviour
         enemyHealth -= damage;
         if (enemyHealth <= 0)
         {
-            PlayerController.con.killedEnemy++;
+            playerController.killedEnemy++;
             Die();
         }
     }
@@ -76,7 +79,7 @@ public class EnemyStats : MonoBehaviour
                 temp.transform.position = new Vector3(temp.transform.position.x, temp.transform.position.y, -0.1f);
             }
         }
-        PlayerStats.stats.AddExp(exp);
+        stats.AddExp(exp);
 
     }
 

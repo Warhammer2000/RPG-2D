@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class Interactive : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Interactive : MonoBehaviour
     public Inventory inv;
     public DialogueSettings dialogue;
     public AudioSource source;
-
+    [Inject] DialogueManager dialogueManager;
     private void Awake()
     {
         source = GetComponent<AudioSource>();   
@@ -30,7 +31,7 @@ public class Interactive : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E) && !dialogue.dialogueStarted)
             {
-                DialogueManager.Instance.StartDialogue(dialogue);
+                dialogueManager.StartDialogue(dialogue);
                 dialogue = null;
             }
         }
