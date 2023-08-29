@@ -9,7 +9,7 @@ public class Inventory : MonoBehaviour
     public Item[] inv; //items
     public int[] count;
     public int money;
-    private Text moneyText;
+    [SerializeField] private Text moneyText;
     public Item[] equipment;
     private ItemEffectManager itemEffectManager;
     public int arrowID;

@@ -1,5 +1,5 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -14,10 +14,12 @@ public class BuingScript : MonoBehaviour
     public Text itemText;
     public GameObject WarningPanel;
     public Text untillBuy;
+    public float timer = 0;
+    public bool isButtonPushed = false;
     private void Awake()
     {
-        itemText = transform.GetChild(0).GetComponent<Text>();
-        ItemImage = transform.GetChild(1).GetComponent<Image>();
+        itemText = transform.GetChild(1).GetChild(1).GetComponent<Text>();
+        ItemImage = transform.GetChild(0).GetChild(1).GetComponent<Image>();
 
         itemText.text = " Gold : " + itemforBuy.cost.ToString();
         ItemImage.sprite = itemforBuy.sprite;
@@ -25,22 +27,25 @@ public class BuingScript : MonoBehaviour
     }
     public void Buy()
     {
-        if(inventroy.money >= itemforBuy.cost)
+        if (inventroy.money >= itemforBuy.cost)
         {
-           AddItem(itemforBuy, count);
-           inventroy.money -= itemforBuy.cost;    
+            AddItem(itemforBuy, count);
+            inventroy.money -= itemforBuy.cost;
         }
         else
         {
+            
             untillBuy.text = "Вам нехватает " + (itemforBuy.cost - inventroy.money) + " золота, для покупки " + itemforBuy.name;
-            StartCoroutine(Wait());
+            WarningPanel.SetActive(true);
+            isButtonPushed = true;
         }
     }
-    IEnumerator Wait()
+    private void Warning()
     {
-        WarningPanel.SetActive(true);
-        yield return new WaitForSeconds(3f);
-        WarningPanel.SetActive(false);
+        Debug.Log("Warning");
+        WarningPanel.SetActive(false);  
+        
+
     }
     public bool AddItem(Item newItem, int newCount)
     {
@@ -62,5 +67,21 @@ public class BuingScript : MonoBehaviour
             }
         }
         return false;
+    }
+    private void Update()
+    {
+        if (isButtonPushed == true)
+        {
+            timer += 0.002f;
+            if (timer >= 4f)
+            {
+                Warning();
+            }
+            if(timer >= 4.5f)
+            {
+                isButtonPushed = false;
+                timer = 0;
+            }
+        }
     }
 }

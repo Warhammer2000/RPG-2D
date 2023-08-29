@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class ItemEffectManager
 {
+    [Inject] private SpellBook _spell;
     public bool GetEffect(Item item)
     {
         bool _return = false;
@@ -18,22 +20,22 @@ public class ItemEffectManager
     }
     private bool LearnSpell(Spell spell)
     {
-        for(int i = 0; i < SpellBook.instance.spells.Length; i++)
+        for(int i = 0; i < _spell.spells.Length; i++)
         {
-            if(SpellBook.instance.spells[i] != null)
+            if(_spell.spells[i] != null)
             {
-                if(SpellBook.instance.spells[i].id == spell.id)
+                if(_spell.spells[i].id == spell.id)
                 {
                     Debug.Log("Вы уже знаете, это заклинание.");
                     return false;
                 }
             }
         }
-        for(int i = 0; i < SpellBook.instance.spells.Length; i++)
+        for(int i = 0; i < _spell.spells.Length; i++)
         {
-            if (SpellBook.instance.spells[i] == null)
+            if (_spell  .spells[i] == null)
             {
-                SpellBook.instance.spells[i] = spell;
+                _spell.spells[i] = spell;
                 return true;
             }
         }

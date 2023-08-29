@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class BookScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [Inject] private SpellBook spell;
+
     public int BookID = 0;
     private SpellBookUI ui;
 
@@ -19,11 +22,11 @@ public class BookScript : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
   
     public void Refresh()
     {
-        if (SpellBook.instance.spells[BookID])
+        if (spell.spells[BookID])
         {
             isFree = false;
             myIcon.gameObject.SetActive(true);
-            myIcon.sprite = SpellBook.instance.spells[BookID].spellIcon;
+            myIcon.sprite = spell.spells[BookID].spellIcon;
         }
         else
         {

@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     
     [Inject] private Inventory inventory;
     [Inject] private PlayerStats stats;
-   
+    [Inject] private SpellBook spell;
     private Vector3 cursor;
     public float DashForce; //Сила рывка
     public float DashStaminaLose;
@@ -164,12 +164,12 @@ public class PlayerController : MonoBehaviour
         {
             if (isMelle) return;
             isCasting = true;
-            if (SpellBook.instance.equipment[0])
+            if (spell.equipment[0])
             {
                 MagicEffect(0);
                 MagicCost(0);
             }
-            if (SpellBook.instance.equipment[1])
+            if (spell.equipment[1])
             {
                 MagicEffect(1);
                 MagicCost(1);
@@ -191,10 +191,10 @@ public class PlayerController : MonoBehaviour
             Vector2 direction = mousePos - castPos;
             castPoints[index].transform.right = direction;
 
-            if (PlayerStats.ManaLose(SpellBook.instance.equipment[index].manaCost))
+            if (PlayerStats.ManaLose(spell.equipment[index].manaCost))
             {
-                AttackMagicScript mag = Instantiate(SpellBook.instance.equipment[index].spellPref, castPoints[index].transform.position, castPoints[index].transform.rotation).GetComponent<AttackMagicScript>();
-                mag.Initialize(SpellBook.instance.equipment[index]);
+                AttackMagicScript mag = Instantiate(spell.equipment[index].spellPref, castPoints[index].transform.position, castPoints[index].transform.rotation).GetComponent<AttackMagicScript>();
+                mag.Initialize(spell.equipment[index]);
             }
         }
     }
@@ -203,7 +203,7 @@ public class PlayerController : MonoBehaviour
         castPoints[index].SetActive(true);
 
         ParticleSystem.MainModule castMain = castPoints[index].GetComponent<ParticleSystem>().main;
-        castMain.startColor = new ParticleSystem.MinMaxGradient(SpellBook.instance.equipment[index].SpellColor);
+        castMain.startColor = new ParticleSystem.MinMaxGradient(spell.equipment[index].SpellColor);
     }
     private void HitOff()
     {

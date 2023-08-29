@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class SpellBookUI : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class SpellBookUI : MonoBehaviour
     public Color equipColor;
 
     private bool isInitialized;
-
+    [Inject] private SpellBook spell;
     public void Access()
     {
         bookPanel = transform.GetChild(0);
@@ -40,7 +41,7 @@ public class SpellBookUI : MonoBehaviour
         equipPanel = transform.GetChild(2);
 
         //Inventory
-        books = new BookScript[18];
+        books = new BookScript[11];
         for(int i = 0; i < books.Length; i++)
         {
             books[i] = bookPanel.GetChild(i).GetComponent<BookScript>().GetLinkSetSettings(i, this);
@@ -63,7 +64,7 @@ public class SpellBookUI : MonoBehaviour
     }
     public void OnButtonClick(int index)
     {
-        SpellBook.instance.SetEquip(index, selectedBook.BookID);
+        spell.SetEquip(index, selectedBook.BookID);
         selectedBook = null;
         RefreshAll();
     }
@@ -127,10 +128,10 @@ public class SpellBookUI : MonoBehaviour
         for(int i = 0; i<books.Length; i++)
         {
             books[i].isEquip = false;
-            if(SpellBook.instance.spells[books[i].BookID] != null)
+            if(spell.spells[books[i].BookID] != null)
             {
-                if (SpellBook.instance.equipment[0] == SpellBook.instance.equipment[i]) books[i].isEquip = true;
-                if (SpellBook.instance.equipment[1] == SpellBook.instance.equipment[i]) books[i].isEquip = true;
+                if (spell.equipment[0] == spell.equipment[i]) books[i].isEquip = true;
+                if (spell.equipment[1] == spell.equipment[i]) books[i].isEquip = true;
             }
             books[i].Refresh();
 
@@ -142,7 +143,7 @@ public class SpellBookUI : MonoBehaviour
         if (selectedBook)
         {
             if (!selectedBook.isEquip) selectedBook.SetColor(selectColor);
-            InfoChange(SpellBook.instance.spells[selectedBook.BookID]);
+            InfoChange(spell.spells[selectedBook.BookID]);
         }
         else InfoChange(null);
 

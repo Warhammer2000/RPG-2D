@@ -72,9 +72,9 @@ public class InventoryUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         }
         //Info//
         infoImage = infoPanel.GetChild(0).GetChild(0).GetComponent<Image>();
-        infoName = infoPanel.GetChild(1).GetComponent<Text>();  
-        infoDescription = infoPanel.GetChild(2).GetComponent<Text>();  
-        infoEffect = infoPanel.GetChild(3).GetComponent<Text>();
+        infoName = infoPanel.GetChild(1).GetChild(0).GetComponent<Text>();  
+        infoDescription = infoPanel.GetChild(2).GetChild(0).GetComponent<Text>();  
+        infoEffect = infoPanel.GetChild(3).GetChild(0).GetComponent<Text>();
 
         equipCells = new EquipCellScript[3];
         for(int i = 0; i < equipCells.Length; i++)
