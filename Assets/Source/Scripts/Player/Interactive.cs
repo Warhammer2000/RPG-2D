@@ -7,7 +7,6 @@ using Zenject;
 public class Interactive : MonoBehaviour
 {
     public ItemSettings item;
-    public static Interactive player;
     public Inventory inv;
     public DialogueSettings dialogue;
     public AudioSource source;
@@ -16,7 +15,7 @@ public class Interactive : MonoBehaviour
     {
         source = GetComponent<AudioSource>();   
     }
-    void Start() { player = this; inv = GetComponent<Inventory>(); }
+    void Start() {  inv = GetComponent<Inventory>(); }
     void Update()
     {
         if (item != null)
@@ -37,24 +36,35 @@ public class Interactive : MonoBehaviour
         }
     }
 
-    private void TakeItem()
+    public void TakeItem()
     {
-        if(inv.AddItem(item.thisItem, item.count))
+        if (item != null) 
         {
-            source.PlayOneShot(item.thisItem.clip);
-            Debug.Log("You catch up  item");
-            Destroy(item.gameObject);
-            item = null;
-        }
-        else { Debug.Log("Error"); }
+            if (item.thisItem.myType == Item.ItemTypes.gold)
+            {
+                inv.AddGold(item.count);
+                Destroy(item.gameObject);
+            }
+            if (inv.AddItem(item.thisItem, item.count))
+            {
+                source.PlayOneShot(item.thisItem.clip);
+                Debug.Log("You catch up  item");
+                Destroy(item.gameObject);
+                item = null;
+            }
+            else { Debug.Log("Error"); }
+        } 
     }
 
 
     private void TakeGold()
     {
-        source.PlayOneShot(item.thisItem.clip);
-        Debug.Log("You catch up  Gold");
-        inv.AddGold(item.count);
-        Destroy(item.gameObject);
+        if (item != null)
+        {
+            source.PlayOneShot(item.thisItem.clip);
+            Debug.Log("You catch up  Gold");
+            inv.AddGold(item.count);
+            Destroy(item.gameObject);
+        }
     }
 }

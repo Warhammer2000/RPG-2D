@@ -5,16 +5,19 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Zenject;
+using System.Reflection;
 
 public class PlayerController : MonoBehaviour
 {
     [Header("Player Settings")]
     public float speed;
-
+    public Joystick joystick;
     
     [Inject] private Inventory inventory;
     [Inject] private PlayerStats stats;
     [Inject] private SpellBook spell;
+
+
     private Vector3 cursor;
     public float DashForce; //Сила рывка
     public float DashStaminaLose;
@@ -52,6 +55,7 @@ public class PlayerController : MonoBehaviour
     public Text killedEnemyText;
     public AudioClip clip;
     public AudioSource source;
+    [SerializeField] private bool isButtonActive = false;
     void Awake()
     {
         stats = GetComponent<PlayerStats>();
@@ -77,21 +81,21 @@ public class PlayerController : MonoBehaviour
     }
     void Update()
     {
-        x = Input.GetAxis("Horizontal");
-        y = Input.GetAxis("Vertical");
+        x = joystick.Horizontal;
+        y = joystick.Vertical;
 
         playerIsStand = x == 0 && y == 0;
         cursor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 
-        Dash();
+        DashPc();
         Attack();
     }
     private void FixedUpdate()
     {
         if(!isDashed && !isHited)
         {
-            Move();
+            Move(x,y);
         }
         if (killedEnemyText)
         {
@@ -102,20 +106,40 @@ public class PlayerController : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    private void Dash()
+    private void DashPc()
     {
-        if(Input.GetKey(KeyCode.Space) && !playerIsStand && !isDashed)
+        if (Input.GetKey(KeyCode.Space) && !playerIsStand && !isDashed)
         {
-            if(PlayerStats.StaminaLose(DashStaminaLose, stats.aglDash, PlayerStats.Agility))
+            if (PlayerStats.StaminaLose(DashStaminaLose, stats.aglDash, PlayerStats.Agility))
             {
                 isDashed = true;
                 DashTime = DashCountDown;
                 rb.AddForce(new Vector2(DashForce * x, DashForce * y), ForceMode2D.Impulse);
                 source.PlayOneShot(clip);
             }
-           
+
         }
-        if(DashTime > 0) DashTime -= Time.deltaTime;    
+        if (DashTime > 0) DashTime -= Time.deltaTime;
+        else if (isDashed)
+        {
+            DashTime = 0;
+            isDashed = false;
+            rb.velocity = Vector3.zero;
+        }
+    }
+    public void DashAndroid()
+    {
+        if (!playerIsStand && !isDashed)
+        {
+            if (PlayerStats.StaminaLose(DashStaminaLose, stats.aglDash, PlayerStats.Agility))
+            {
+                isDashed = true;
+                DashTime = DashCountDown;
+                rb.AddForce(new Vector2(DashForce * x, DashForce * y), ForceMode2D.Impulse);
+                source.PlayOneShot(clip);
+            }
+        }
+        if (DashTime > 0) DashTime -= Time.deltaTime;
         else if (isDashed)
         {
             DashTime = 0;
@@ -127,15 +151,15 @@ public class PlayerController : MonoBehaviour
     {
         if (!isCasting)
         {
-            if (Input.GetMouseButton(1)) Distant();
+            if (Input.GetMouseButton(1)) DistantPc();
             else if (Input.GetMouseButtonUp(1)) { DistantWeapon.SetActive(false); BowReady = 0f; } 
-            else Melle();
+            else MellePc();
         }
         Magic();
         HitOff();
     }
 
-    private void Melle()
+    private void MellePc()
     {
         if(Input.GetMouseButtonDown(0) && !isMelle)
         {
@@ -156,11 +180,34 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-  
+    public void MelleAndroid()
+    {
+        if (!isMelle)
+        {
+            if (inventory.equipment[0])
+            {
+                if (PlayerStats.StaminaLose(inventory.equipment[0].weight, stats.strWeight, PlayerStats.Strength))
+                {
+                    swordRender.sprite = inventory.equipment[0].sprite;
+                    swordCollider.size = new Vector2(0.4f, inventory.equipment[0].length);
+                    swordCollider.offset = new Vector2(0.4f, inventory.equipment[0].offset);
 
+                    float sp = inventory.equipment[0].speed;
+
+                    swordAnim.speed = sp;
+                    isMelle = true;
+                    mySword.SetActive(true);
+                }
+            }
+        }
+    }
+    public void MagicAndorid()
+    {
+        isButtonActive = !isButtonActive;
+    }
     private void Magic()
     {
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (isButtonActive)
         {
             if (isMelle) return;
             isCasting = true;
@@ -201,7 +248,6 @@ public class PlayerController : MonoBehaviour
     private void MagicEffect(int index)
     {
         castPoints[index].SetActive(true);
-
         ParticleSystem.MainModule castMain = castPoints[index].GetComponent<ParticleSystem>().main;
         castMain.startColor = new ParticleSystem.MinMaxGradient(spell.equipment[index].SpellColor);
     }
@@ -217,7 +263,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Distant()
+    private void DistantPc()
     {
         if (isMelle || !inventory.equipment[1]) return;
         DistantWeapon.SetActive(true);
@@ -270,16 +316,72 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    public void DistantAndroid()
+    {
+        if (isMelle || !inventory.equipment[1]) return;
+        DistantWeapon.SetActive(true);
 
-    private void Move()
+        Vector2 bowPos = DistantWeapon.transform.position;
+        Vector2 direction = (Vector2)cursor - bowPos;
+        DistantWeapon.transform.right = direction;
+        PlayerStats.stWait = 0;
+
+        BowReady += inventory.equipment[1].speed * 0.2f * Time.deltaTime;
+        if (BowReady <= 2)
+        {
+
+            if (myBow.sprite != inventory.equipment[1].sprite) myBow.sprite = inventory.equipment[1].sprite;
+            if (BowReady < 1f) arrowPoint.gameObject.SetActive(false);
+
+
+            if (inventory.ArrowCheaker(inventory.equipment[1].ArrowId))
+            {
+                ArrowIsReady = true;
+                arrowPoint.gameObject.SetActive(true);
+
+
+                arrowPoint.localPosition = new Vector3(1.25f, 0, 0);
+                arrowPoint.GetComponent<SpriteRenderer>().sprite = inventory.equipment[1].arrowSprite;
+            }
+            else arrowPoint.gameObject.SetActive(false);
+
+        }
+        else if (ArrowIsReady)
+        {
+            if (myBow.sprite != inventory.equipment[1].sprite) myBow.sprite = inventory.equipment[1].sprite;
+            arrowPoint.localPosition = new Vector3(0.625f, 0, 0);
+
+            bowCharched = true;
+            if (bowCharched)
+            {
+               if (PlayerStats.StaminaLose(inventory.equipment[1].weight, stats.strWeight, PlayerStats.Strength))
+               {
+                   bowCharched = false;
+                   ArrowIsReady = false;
+                   BowReady = 0f;
+                   inventory.ArrowUse();
+                   Instantiate(inventory.equipment[1].myArrow, arrowPoint.position, arrowPoint.rotation);
+               }
+            }
+        }
+    }
+    private void Move(float x, float y)
     {
         mySprite.eulerAngles = new Vector3(0, 0, 15 * -x);
         rb.velocity = new Vector3(x, y) * speed;
-        if(cursor.x < transform.position.x && facingRight)
+        //if(cursor.x < transform.position.x && facingRight)
+        //{
+        //    Flip();
+        //}
+        //else if(cursor.x > transform.position.x && !facingRight)
+        //{
+        //    Flip();
+        //}
+        if (x < 0 && facingRight)
         {
             Flip();
         }
-        else if(cursor.x > transform.position.x && !facingRight)
+        else if (x > 0 && !facingRight)
         {
             Flip();
         }

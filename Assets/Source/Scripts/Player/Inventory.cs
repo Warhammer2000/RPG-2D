@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class Inventory : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class Inventory : MonoBehaviour
     public Item[] inv; //items
     public int[] count;
     public int money;
-    [SerializeField] private Text moneyText;
+    [Inject] private Text[] moneyText;
     public Item[] equipment;
     private ItemEffectManager itemEffectManager;
     public int arrowID;
@@ -25,8 +26,8 @@ public class Inventory : MonoBehaviour
     }
     private void Start()
     {
-        moneyText = GameObject.Find("MoneyText").GetComponent<Text>();
-        moneyText.text = "Money : " + money;
+        moneyText[0]=GameObject.Find("MoneyText").GetComponent<Text>();
+        moneyText[0].text = "Money : " + money;
     }
     public bool AddItem(Item newItem, int newCount)
     {
@@ -89,7 +90,7 @@ public class Inventory : MonoBehaviour
         { 
             Debug.Log("Вы подняли " + count + "золота");
             money += count;
-            moneyText.text = "Money : " + money;
+            moneyText[0].text = "Money : " + money;
             MoneyDText.text = "Money " + money; 
         }
         else Debug.Log("Вы подняли");

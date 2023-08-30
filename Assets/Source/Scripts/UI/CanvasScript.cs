@@ -44,7 +44,7 @@ public class CanvasScript : MonoBehaviour
     private void FixedUpdate()
     {
         DataBase();
-        SizeBase();
+        
     }
     private void DataBase()
     {
@@ -61,13 +61,7 @@ public class CanvasScript : MonoBehaviour
         spText.text = PlayerStats.PlayerStamina.ToString("0") + " / " + PlayerStats.PlayerMaxStamina.ToString("0");
         mpText.text = PlayerStats.PlayerMana + " / " + PlayerStats.PlayerMaxMana;
     }
-    private void SizeBase()
-    {
-        hpUi.sizeDelta = new Vector2(100 + PlayerStats.PlayerMaxHealth * 3, hpUi.sizeDelta.y);
-        spUi.sizeDelta = new Vector2(100 + PlayerStats.PlayerMaxStamina * 3, spUi.sizeDelta.y);
-        mpUi.sizeDelta = new Vector2(100 + PlayerStats.PlayerMaxMana * 3, mpUi.sizeDelta.y);
-    }
-    void Update()
+    private void Update()
     {
       
         if (Input.GetKeyDown(KeyCode.Tab))

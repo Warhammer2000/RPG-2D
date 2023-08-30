@@ -7,9 +7,10 @@ public class SpellBook : MonoBehaviour
     public Spell[] spells;
     public Spell[] equipment;
     
-
+    public static SpellBook instance;
     private void Awake()
     {
+        instance = this;
         spells = new Spell[18];
         equipment = new Spell[2];
     }

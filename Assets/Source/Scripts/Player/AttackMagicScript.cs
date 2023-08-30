@@ -26,7 +26,6 @@ public class AttackMagicScript : MonoBehaviour
     {
         if (collision.tag.Contains("Enemy") && !isHited)
         {
-            Debug.Log("Errrrror");
             isHited = true;
             if (mySpell.explosionRadius > 0f) Explosion();
             else Hit(collision.GetComponent<EnemyCanDie>());
@@ -54,8 +53,6 @@ public class AttackMagicScript : MonoBehaviour
     }
     private void Hit(EnemyCanDie candie)
     {
-        Debug.Log("HIt");
         candie.MagicHit(transform, mySpell);
-        Debug.Log("HIt2");
     }    
 }

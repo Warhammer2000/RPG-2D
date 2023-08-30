@@ -92,10 +92,6 @@ public class InventoryUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         {
             if (Input.GetMouseButtonDown(0))
             {
-                SelectCellSwitch();
-            }
-            if (Input.GetMouseButtonDown(1))
-            {
                 if (inventory.Use(cursorCell.CellId)) RefreshAll();
                 {
                     Debug.Log("Use");

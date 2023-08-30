@@ -10,10 +10,10 @@ public class PlayerStats : MonoBehaviour
     public static Sprite PlayerSprite;
     public string Name;
 
-    [Inject]
-    private Inventory inventory;    
 
-    public GameObject DeathPanel;
+    [Inject] private Inventory inventory;
+    [Inject] private GameObject[] Panels;
+
 
     public static int PlayerHealth;
     public static int PlayerMaxHealth;
@@ -81,13 +81,12 @@ public class PlayerStats : MonoBehaviour
 
     public AudioSource source;
     public AudioClip clip;
+    
     private void Awake()
     {
-       
         PlayerSprite = Resources.Load<Sprite>("Sprites/Sprites/PlayerSprite");
         PlayerName = Name;
         source = GetComponent<AudioSource>();
-        DeathPanel = GameObject.Find("DeathPanel").gameObject;
     }
     void Start()
     {
@@ -104,7 +103,6 @@ public class PlayerStats : MonoBehaviour
         PlayerHealth = PlayerMaxHealth;
         PlayerStamina = PlayerMaxStamina;
         PlayerMana = PlayerMaxMana;
-        DeathPanel.SetActive(false);    
     }
     void Update()
     {
@@ -177,7 +175,7 @@ public class PlayerStats : MonoBehaviour
         {
             PlayerHealth = 0;
             transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
-            DeathPanel.SetActive(true);
+            Panels[0].SetActive(true);
             Time.timeScale = 0;
         }
     }

@@ -7,8 +7,8 @@ using Zenject;
 [System.Serializable]
 public class DialogueManager : MonoBehaviour
 {
-    [Inject] private Inventory inventory;   
-
+    [Inject] private Inventory inventory;
+    [Inject] private Interactive intercative;
 
     [SerializeField] private GameObject UI;
     [SerializeField] private Image Portrate;
@@ -191,7 +191,7 @@ public class DialogueManager : MonoBehaviour
         dialog = null;
         settings = null;
         UI.SetActive(false);
-        Interactive.player.dialogue = null;
+        intercative.dialogue = null;
     }
     private void But0()
     {

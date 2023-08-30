@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Arrow
   - Sword
+  - DeathPanel
   layers:
   - Default
   - TransparentFX
