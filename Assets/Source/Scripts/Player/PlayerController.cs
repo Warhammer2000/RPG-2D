@@ -56,6 +56,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip clip;
     public AudioSource source;
     [SerializeField] private bool isButtonActive = false;
+    [SerializeField] private bool joysickisActive;
     void Awake()
     {
         stats = GetComponent<PlayerStats>();
@@ -87,6 +88,7 @@ public class PlayerController : MonoBehaviour
         playerIsStand = x == 0 && y == 0;
         cursor = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        joysickisActive = FixedJoystick.instance.IsActive();
 
         DashPc();
         Attack();
@@ -149,36 +151,8 @@ public class PlayerController : MonoBehaviour
     }
     private void Attack()
     {
-        if (!isCasting)
-        {
-            if (Input.GetMouseButton(1)) DistantPc();
-            else if (Input.GetMouseButtonUp(1)) { DistantWeapon.SetActive(false); BowReady = 0f; } 
-            else MellePc();
-        }
         Magic();
         HitOff();
-    }
-
-    private void MellePc()
-    {
-        if(Input.GetMouseButtonDown(0) && !isMelle)
-        {
-            if (inventory.equipment[0])
-            {
-                if(PlayerStats.StaminaLose(inventory.equipment[0].weight, stats.strWeight, PlayerStats.Strength))
-                {
-                    swordRender.sprite = inventory.equipment[0].sprite;
-                    swordCollider.size = new Vector2(0.4f, inventory.equipment[0].length);
-                    swordCollider.offset = new Vector2(0.4f, inventory.equipment[0].offset);
-
-                    float sp = inventory.equipment[0].speed;
-
-                    swordAnim.speed = sp;
-                    isMelle = true;
-                    mySword.SetActive(true);
-                }
-            }
-        }
     }
     public void MelleAndroid()
     {
@@ -231,17 +205,20 @@ public class PlayerController : MonoBehaviour
     }
     private void MagicCost(int index)
     {
-        if (Input.GetMouseButtonDown(index))
+        if (!joysickisActive)
         {
-            Vector2 castPos = castPoints[index].transform.position;
-            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector2 direction = mousePos - castPos;
-            castPoints[index].transform.right = direction;
-
-            if (PlayerStats.ManaLose(spell.equipment[index].manaCost))
+            if (Input.GetMouseButtonDown(index))
             {
-                AttackMagicScript mag = Instantiate(spell.equipment[index].spellPref, castPoints[index].transform.position, castPoints[index].transform.rotation).GetComponent<AttackMagicScript>();
-                mag.Initialize(spell.equipment[index]);
+                Vector2 castPos = castPoints[index].transform.position;
+                Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector2 direction = mousePos - castPos;
+                castPoints[index].transform.right = direction;
+
+                if (PlayerStats.ManaLose(spell.equipment[index].manaCost))
+                {
+                    AttackMagicScript mag = Instantiate(spell.equipment[index].spellPref, castPoints[index].transform.position, castPoints[index].transform.rotation).GetComponent<AttackMagicScript>();
+                    mag.Initialize(spell.equipment[index]);
+                }
             }
         }
     }
@@ -259,60 +236,6 @@ public class PlayerController : MonoBehaviour
             {
                 isMelle=false;
                 mySword.SetActive(false);
-            }
-        }
-    }
-
-    private void DistantPc()
-    {
-        if (isMelle || !inventory.equipment[1]) return;
-        DistantWeapon.SetActive(true);
-
-        Vector2 bowPos = DistantWeapon.transform.position;
-        Vector2 direction = (Vector2)cursor - bowPos;
-        DistantWeapon.transform.right = direction;
-        PlayerStats.stWait = 0;
-
-        BowReady += inventory.equipment[1].speed * 0.2f * Time.deltaTime;
-        if(BowReady <= 2)
-        {
-            
-            if (myBow.sprite != inventory.equipment[1].sprite) myBow.sprite = inventory.equipment[1].sprite;
-           if(BowReady < 1f)arrowPoint.gameObject.SetActive(false);
-           
-            
-                if (inventory.ArrowCheaker(inventory.equipment[1].ArrowId))
-                {
-                    Debug.Log("1");
-                    ArrowIsReady = true;
-                    arrowPoint.gameObject.SetActive(true);
-
-
-                    arrowPoint.localPosition = new Vector3(1.25f, 0, 0);
-                    arrowPoint.GetComponent<SpriteRenderer>().sprite = inventory.equipment[1].arrowSprite;
-                }
-                else arrowPoint.gameObject.SetActive(false);    
-            
-        }
-        else if (ArrowIsReady)
-        {
-            if (myBow.sprite != inventory.equipment[1].sprite) myBow.sprite = inventory.equipment[1].sprite;
-            arrowPoint.localPosition = new Vector3(0.625f,0,0);
-
-            bowCharched = true;
-            if (bowCharched)
-            {
-                if (Input.GetMouseButtonDown(0))
-                {
-                    if(PlayerStats.StaminaLose(inventory.equipment[1].weight, stats.strWeight, PlayerStats.Strength))
-                    {
-                        bowCharched = false;
-                        ArrowIsReady = false;
-                        BowReady = 0f;
-                        inventory.ArrowUse();
-                        Instantiate(inventory.equipment[1].myArrow, arrowPoint.position, arrowPoint.rotation);
-                    }
-                }
             }
         }
     }
@@ -369,14 +292,6 @@ public class PlayerController : MonoBehaviour
     {
         mySprite.eulerAngles = new Vector3(0, 0, 15 * -x);
         rb.velocity = new Vector3(x, y) * speed;
-        //if(cursor.x < transform.position.x && facingRight)
-        //{
-        //    Flip();
-        //}
-        //else if(cursor.x > transform.position.x && !facingRight)
-        //{
-        //    Flip();
-        //}
         if (x < 0 && facingRight)
         {
             Flip();
@@ -386,7 +301,6 @@ public class PlayerController : MonoBehaviour
             Flip();
         }
     }
-
     private void Flip()
     {
         facingRight = !facingRight;
