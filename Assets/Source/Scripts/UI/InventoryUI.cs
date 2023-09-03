@@ -65,7 +65,7 @@ public class InventoryUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
         }
         else Debug.Log("Вставить ссылку на курсор!");
         //Invetory
-        cells = new CellScript[42];
+        cells = new CellScript[30];
         for (int i = 0; i < cells.Length; i++)
         {
             cells[i] = cellPanel.GetChild(i).GetComponent<CellScript>().GetLinkSetSettings(i, this);
