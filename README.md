@@ -16,12 +16,12 @@
 # Скриншоты из игры
 
 1. ![Image alt](https://github.com/Warhammer2000/RPG-2D/blob/main/Screen/RPG1.png)
-2. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG2.png)
-3. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG3.png)
-4. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG4.png)
-5. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG5.png)
-6. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG6.png)
-7. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG7.png)
+2. ![Image alt](https://github.com/Warhammer2000/RPG-2D/blob/main/Screen/RPG2.png)
+3. ![Image alt](https://github.com/Warhammer2000/RPG-2D/blob/main/Screen/RPG3.png)
+4. ![Image alt](https://github.com/Warhammer2000/RPG-2D/blob/main/Screen/RPG4.png)
+5. ![Image alt](https://github.com/Warhammer2000/RPG-2D/blob/main/Screen/RPG5.png)
+6. ![Image alt](https://github.com/Warhammer2000/RPG-2D/blob/main/Screen/RPG6.png)
+7. ![Image alt](https://github.com/Warhammer2000/RPG-2D/blob/main/Screen/RPG7.png)
 
 # Сколько времени было затрачено?
 
