@@ -15,7 +15,13 @@
 
 # Скриншоты из игры
 
-1. ![]()
+1. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG1.png)
+2. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG2.png)
+3. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG3.png)
+4. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG4.png)
+5. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG5.png)
+6. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG6.png)
+7. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG7.png)
 
 # Сколько времени было затрачено?
 
