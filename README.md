@@ -15,7 +15,7 @@
 
 # Скриншоты из игры
 
-1. https://github.com/Warhammer2000/RPG-2D/blob/main/Screen/RPG1.png
+1. ![Image alt](https://github.com/Warhammer2000/RPG-2D/blob/main/Screen/RPG1.png)
 2. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG2.png)
 3. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG3.png)
 4. ![](C:\Users\Administrator\Desktop\Space\Screen\RPG4.png)
