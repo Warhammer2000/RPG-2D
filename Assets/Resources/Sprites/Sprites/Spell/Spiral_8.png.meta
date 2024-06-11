@@ -93,7 +93,7 @@ TextureImporter:
       213: -6369158173823071718
     second: Spiral_8_29
   externalObjects: {}
-  serializedVersion: 11
+  serializedVersion: 12
   mipmaps:
     mipMapMode: 0
     enableMipMap: 0
@@ -114,6 +114,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -152,6 +153,7 @@ TextureImporter:
   textureFormatSet: 0
   ignorePngGamma: 0
   applyGammaDecoding: 0
+  cookieLightType: 1
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
@@ -179,6 +181,30 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
     buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -832,6 +858,37 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      Spiral_8_0: 7697363834876724022
+      Spiral_8_1: 4962427707527198312
+      Spiral_8_10: -6041082104418776228
+      Spiral_8_11: -6526580439498869575
+      Spiral_8_12: -301310875740355088
+      Spiral_8_13: -5564217084143010701
+      Spiral_8_14: -8051762230563320382
+      Spiral_8_15: -2446828513755196979
+      Spiral_8_16: 2549267695385580386
+      Spiral_8_17: -3212903580589965310
+      Spiral_8_18: -1175651334996480043
+      Spiral_8_19: 6965584952405978930
+      Spiral_8_2: 990716484480523174
+      Spiral_8_20: 3211643250295088398
+      Spiral_8_21: -2427139865236018184
+      Spiral_8_22: 8928887706977314704
+      Spiral_8_23: -1776224818578831645
+      Spiral_8_24: -4534451834186676554
+      Spiral_8_25: 6578082440486039770
+      Spiral_8_26: 3138278936512474079
+      Spiral_8_27: -8470641211577462513
+      Spiral_8_28: 2132774434650549539
+      Spiral_8_29: -6369158173823071718
+      Spiral_8_3: -9193638945227055555
+      Spiral_8_4: 5339893239343497144
+      Spiral_8_5: -5193677332337364158
+      Spiral_8_6: 4441158821344441927
+      Spiral_8_7: -485948473119766706
+      Spiral_8_8: 2361477502717385496
+      Spiral_8_9: 7698595898069270493
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
